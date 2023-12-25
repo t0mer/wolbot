@@ -6,11 +6,19 @@ import datetime
 import subprocess
 from os import path
 from loguru import logger
+from telebot import types, TeleBot
+
+ALLOWED_IDS = os.getenv('ALLOWED_IDS')
+BOT_TOKEN = os.getenv('BOT_TOKEN')
 
 class Wol:
     def __init__(self):
         self.computers = []
-        self.config = "config/config.yaml"
+        self.config_path = "config/config.yaml"
+        self.get_computers()
+        self.allowed_ids = os.getenv('ALLOWED_IDS')
+        self.bot_token = os.getenv('BOT_TOKEN')
+        self.bot = TeleBot(self.bot_token)
         
 
 
@@ -18,12 +26,13 @@ class Wol:
 
     def get_computers(self):
         try:
-            logger.info("computers kids list")
+            logger.info("Loading computers kids list")
             if not path.exists(self.config_path):
                 shutil.copy('config.yaml', self.config_path)
             with open("config/config.yaml",'r',encoding='utf-8') as stream:
                 try:
                     self.computers = yaml.safe_load(stream)
+                    logger.info(str(len(self.computers)) + " Computers Loded")
                 except yaml.YAMLError as exc:
                     logger.error(exc)
         except Exception as e:
@@ -41,5 +50,7 @@ class Wol:
             return 'offline'
 
 
-
-
+if __name__=="__main__":
+    logger.info("Starting the bot")
+    wol = Wol()
+    wol.bot.infinity_polling()
