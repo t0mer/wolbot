@@ -124,4 +124,5 @@ Click on one of the first three options, and a list of computers will be display
 ![Computers list](screenshots/computers.png)
 
 Click on one of the computers to wake it up:
+
 ![Wake up](screenshots/wake.png)
