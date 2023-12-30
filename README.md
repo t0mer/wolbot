@@ -43,14 +43,21 @@ Wolbot can be installed and run as a system service or a Docker container.
 
     [![@bot_username](https://github.com/t0mer/voicy/blob/main/screenshots/scr5-min.png?raw=true "@bot_username")](https://github.com/t0mer/voicy/blob/main/screenshots/scr5-min.png?raw=true "@bot_username")
 
+2. Update the configuration file with the list of network objects. the file should be place under **config** folder:
+   ```yaml
+   computers:
+    - name: 
+        ip: 
+        mac: 
+  ```
 
 
-2. Set the following environment variables:
+3. Set the following environment variables:
     * BOT_TOKEN=#Telegram bot Token generated in the previous step.
     * ALLOWED_IDS= #List of telegram id's allowed to communicate with the bot, comma-separated values.
 
 
-3. If you want to run Wolbot as a ***docker container***, copy the following code into your docker-compose.yaml:
+4. If you want to run Wolbot as a ***docker container***, copy the following code into your docker-compose.yaml:
     ```yaml
     version: "3.6"
     services:
@@ -65,7 +72,7 @@ Wolbot can be installed and run as a system service or a Docker container.
     **Make sure to set all the environment variables before running the *"docker-compose up -d"* command.
 
 
-4. If you want to run Wolbot as a systemd service, clone the repository using the following command:
+5. If you want to run Wolbot as a systemd service, clone the repository using the following command:
     ```bash
     git clone https://github.com/t0mer/wolbot
     ```
