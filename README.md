@@ -14,7 +14,7 @@ Wolbot is a python powerd telegram bot for Wak On LAN tasks.
 * [pyTelegramBotAPI](https://pypi.org/project/wakeonlan/) A small python module for wake on lan.
 
 
-## How to use Wolbot
+## Installing Wolbot
 Wolbot can be installed and run as a system service or a Docker container.
 
 1. Create new telegram bot and get the token
@@ -107,3 +107,21 @@ Wolbot can be installed and run as a system service or a Docker container.
     ```bash
     systemctl status wolbot.servies
     ```
+
+## Using Wolbot
+To start using **Wolbot** send one of the following commands: **/start** ot **/help**.
+A shortcut menu will be opened, with four options:
+
+* Show all computers.
+* Show online computers.
+* Show offline computers.
+* Cancel.
+
+![Bot menu](screenshots/start.png)
+
+Click on one of the first three options, and a list of computers will be displayed:
+
+![Computers list](screenshots/computers.png)
+
+Click on one of the computers to wake it up:
+![Wake up](screenshots/wake.png)
