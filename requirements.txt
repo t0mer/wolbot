@@ -1,5 +1,5 @@
 loguru
 requests
-pypasser
+pyyaml
 pyTelegramBotAPI
 wakeonlan
