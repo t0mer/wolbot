@@ -8,6 +8,7 @@ from os import path
 from loguru import logger
 from computer import Computer
 from telebot import types, TeleBot
+from wakeonlan import send_magic_packet
 
 ALLOWED_IDS = os.getenv('ALLOWED_IDS')
 BOT_TOKEN = os.getenv('BOT_TOKEN')
@@ -35,6 +36,15 @@ def ping(host):
     except Exception as e:
         logger.error(str(e))
         return 'unknown'
+
+
+def wakeup(mac):
+    try:
+        send_magic_packet(mac)
+        return True
+    except Exception as e:
+        logger.error(str(e))
+        return False
 
 # ------------- Get the list of computers from the config file -----------------
 def get_computers():
@@ -71,26 +81,26 @@ def computers_keyboard(status):
             for computer in computers:
                 markup.add(types.InlineKeyboardButton(
                     text=computer.name + " (" + statuses[computer.status] + ")",
-                    callback_data="_computer_" + computer.ip))
+                    callback_data="_computer_" + computer.mac))
         elif status=="online":
             for computer in computers:
                 if computer.status=="online":
                     markup.add(types.InlineKeyboardButton(
                         text=computer.name + " (" + statuses[computer.status] + ")",
-                        callback_data="_computer_" + computer.ip))
+                        callback_data="_computer_" + computer.mac))
         else:
             for computer in computers:
                 if computer.status=="offline":
                     markup.add(types.InlineKeyboardButton(
                         text=computer.name + " (" + statuses[computer.status] + ")",
-                        callback_data="_computer_" + computer.ip))
+                        callback_data="_computer_" + computer.mac))
 
         markup.add(types.InlineKeyboardButton(
                 text="Back ↩",
                 callback_data="back"))
         return markup  
     except Exception as e:
-        logger.error("Error creating drinks keyboard. " + str(e))
+        logger.error("Error creating computers keyboard. " + str(e))
 
 
 
@@ -135,9 +145,7 @@ def exit_callback(call: types.CallbackQuery):
 @bot.callback_query_handler(func=lambda c: c.data == 'all')
 def list_all_computers(call: types.CallbackQuery):
     try:
-        global edge
         global messageid
-        global drinks
         if str(call.message.chat.id) in ALLOWED_IDS:
             msg=bot.send_message(call.message.chat.id,text='All Computers', reply_markup=computers_keyboard("all"), parse_mode='Markdown')
             bot.delete_message(message_id=messageid,chat_id=call.message.chat.id)
@@ -149,9 +157,7 @@ def list_all_computers(call: types.CallbackQuery):
 @bot.callback_query_handler(func=lambda c: c.data == 'online')
 def list_online_computers(call: types.CallbackQuery):
     try:
-        global edge
         global messageid
-        global drinks
         if str(call.message.chat.id) in ALLOWED_IDS:
             msg=bot.send_message(call.message.chat.id,text='Online Computers', reply_markup=computers_keyboard("online"), parse_mode='Markdown')
             bot.delete_message(message_id=messageid,chat_id=call.message.chat.id)
@@ -163,9 +169,7 @@ def list_online_computers(call: types.CallbackQuery):
 @bot.callback_query_handler(func=lambda c: c.data == 'offline')
 def list_offline_computers(call: types.CallbackQuery):
     try:
-        global edge
         global messageid
-        global drinks
         if str(call.message.chat.id) in ALLOWED_IDS:
             msg=bot.send_message(call.message.chat.id,text='Offline Computers', reply_markup=computers_keyboard("offline"), parse_mode='Markdown')
             bot.delete_message(message_id=messageid,chat_id=call.message.chat.id)
@@ -185,7 +189,14 @@ def back_callback(call: types.CallbackQuery):
        logger.error(e)
 
     
-
+@bot.callback_query_handler(func=lambda c: c.data.startswith('_computer_'))
+def make_drink(call: types.CallbackQuery):
+    try:
+        global messageid
+        mac=call.data.split("_computer_")[1]
+        wakeup(mac)
+    except Exception as e:
+        logger.error("Error preparing drink. " + str(e))    
 
 
 if __name__=="__main__":
