@@ -2,7 +2,6 @@ import os
 import re
 import yaml
 import shutil
-import datetime
 import subprocess
 from os import path
 from loguru import logger
@@ -194,7 +193,13 @@ def make_drink(call: types.CallbackQuery):
     try:
         global messageid
         mac=call.data.split("_computer_")[1]
-        wakeup(mac)
+        success = wakeup(mac)
+        if success:
+            bot.reply_to(call.message, "The magic packet sent successfully.")
+        else:
+            bot.reply_to(call.message, "Unable to send magick packet.")
+        bot.delete_message(message_id=messageid,chat_id=call.message.chat.id)
+        messageid=bot.send_message(call.message.chat.id, text="welcome", reply_markup=command_keyboard(), parse_mode='Markdown').message_id
     except Exception as e:
         logger.error("Error preparing drink. " + str(e))    
 
