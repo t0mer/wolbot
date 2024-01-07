@@ -11,7 +11,7 @@ Wolbot is a python powerd telegram bot for Wak On LAN tasks.
 * [Loguru](https://pypi.org/project/loguru/) a library which aims to bring enjoyable logging in Python.
 * [PyYAML](https://pypi.org/project/PyYAML/) a data serialization format designed for human readability and interaction with scripting languages.
 * [pyTelegramBotAPI](https://pypi.org/project/pyTelegramBotAPI/) A simple, but extensible Python implementation for the Telegram Bot API.
-* [pyTelegramBotAPI](https://pypi.org/project/wakeonlan/) A small python module for wake on lan.
+* [wakeonlan](https://pypi.org/project/wakeonlan/) A small python module for wake on lan.
 
 
 ## Installing Wolbot
