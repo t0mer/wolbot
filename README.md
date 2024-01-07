@@ -33,11 +33,9 @@ Wolbot can be installed and run as a system service or a Docker container.
 
     [![@newbot](https://github.com/t0mer/voicy/blob/main/screenshots/scr3-min.png?raw=true "@newbot")](https://github.com/t0mer/voicy/blob/main/screenshots/scr3-min.png?raw=true "@newbot")
 
-
     Choose a name for your bot — your subscribers will see it in the conversation. And choose a username for your bot — the bot can be found by its username in searches. The username must be unique and end with the word “bot.”
 
     [![@username](https://github.com/t0mer/voicy/blob/main/screenshots/scr4-min.png?raw=true "@username")](https://github.com/t0mer/voicy/blob/main/screenshots/scr4-min.png?raw=true "@username")
-
 
     After you choose a suitable name for your bot — the bot is created. You will receive a message with a link to your bot t.me/<bot_username>, recommendations to set up a profile picture, description, and a list of commands to manage your new bot.
 
@@ -53,8 +51,8 @@ Wolbot can be installed and run as a system service or a Docker container.
 
 
 3. Set the following environment variables:
-    * BOT_TOKEN=#Telegram bot Token generated in the previous step.
-    * ALLOWED_IDS= #List of telegram id's allowed to communicate with the bot, comma-separated values.
+    - BOT_TOKEN=#Telegram bot Token generated in the previous step.
+    - ALLOWED_IDS= #List of telegram id's allowed to communicate with the bot, comma-separated values.
 
 
 4. If you want to run Wolbot as a ***docker container***, copy the following code into your docker-compose.yaml:
