@@ -46,9 +46,8 @@ Wolbot can be installed and run as a system service or a Docker container.
    computers:
     - name: 
         ip: 
-        mac: 
-  ```
-
+        mac:
+   ```
 
 3. Set the following environment variables:
     - BOT_TOKEN=#Telegram bot Token generated in the previous step.
