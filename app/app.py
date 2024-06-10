@@ -108,7 +108,7 @@ def computers_keyboard(status):
 
 # ------------- Build command keyboard -----------------
 def command_keyboard():
-    return types.InlineKeyboardMarkup(1
+    return types.InlineKeyboardMarkup(
         keyboard=[
             [
                 types.InlineKeyboardButton(
