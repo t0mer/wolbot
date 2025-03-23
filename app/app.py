@@ -6,19 +6,21 @@ import subprocess
 from os import path
 from loguru import logger
 from computer import Computer
-from telebot import types, TeleBot
+from telebot import types, TeleBot, apihelper
 from wakeonlan import send_magic_packet
 
 ALLOWED_IDS = os.getenv('ALLOWED_IDS')
 BOT_TOKEN = os.getenv('BOT_TOKEN')
+TG_PROXY = os.getenv('TG_PROXY')
+
+if TG_PROXY: apihelper.proxy = {'http': TG_PROXY, 'https': TG_PROXY}
 
 computers = []
 config_path = "config/config.yaml"
 messageid = 0
-allowed_ids = os.getenv('ALLOWED_IDS')
-bot_token = os.getenv('BOT_TOKEN')
 statuses = {"online": "✅", "offline": "❌", "unknown": "❓"}
-bot = TeleBot(bot_token)
+bot = TeleBot(BOT_TOKEN)
+        
         
 
 # ------------- Get the device status -----------------
@@ -27,7 +29,7 @@ def ping(host):
         p = subprocess.Popen("fping -C1 -q "+ host +"  2>&1 | grep -v '-' | wc -l", stdout=subprocess.PIPE, shell=True)
         (output, err) = p.communicate()
         p_status = p.wait()
-        status = re.findall('\d+', str(output))[0]
+        status = re.findall(r'\d+', str(output))[0]
         if status=="1":
             return 'online'
         else:
@@ -50,7 +52,7 @@ def get_computers():
     try:
         logger.info("Loading computers kids list")
         if not path.exists(config_path):
-            shutil.copy('config.yaml', config_path)
+            shutil.copy('config.example.yaml', config_path)
         with open("config/config.yaml",'r',encoding='utf-8') as stream:
             try:
                 for computer in yaml.safe_load(stream)["computers"]:
