@@ -121,12 +121,12 @@ A shortcut menu will be opened, with four options:
 * Show offline computers.
 * Cancel.
 
-![Bot menu](screenshots/start.png)
+![Bot menu](https://raw.githubusercontent.com/t0mer/wolbot/main/screenshots/start.png)
 
 Click on one of the first three options, and a list of computers will be displayed:
 
-![Computers list](screenshots/computers.png)
+![Computers list](https://raw.githubusercontent.com/t0mer/wolbot/main/screenshots/computers.png)
 
 Click on one of the computers to wake it up:
 
-![Wake up](screenshots/wake.png)
+![Wake up](https://raw.githubusercontent.com/t0mer/wolbot/main/screenshots/wake.png)
